@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Sweet Sally ❤️</title>
+    <title>For My Sally ❤️</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        body { background-color: #ffe6e6; text-align: center; font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0; overflow: hidden; }
-        .container { background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 350px; position: relative; z-index: 10; }
-        h1 { color: #d63384; font-size: 24px; margin-bottom: 20px; }
-        .img-container img { width: 100%; max-width: 250px; border-radius: 20px; margin-bottom: 15px; }
-        .buttons { display: flex; justify-content: center; gap: 15px; height: 60px; position: relative; align-items: center; margin-top: 20px; }
-        button { padding: 12px 25px; font-size: 18px; cursor: pointer; border-radius: 50px; border: none; font-weight: bold; transition: 0.3s; }
+        body { background-color: #ffe6e6; text-align: center; font-family: sans-serif; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0; overflow: hidden; }
+        .container { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 320px; }
+        h1 { color: #d63384; font-size: 22px; margin: 15px 0; }
+        .img-container img { width: 100%; border-radius: 15px; display: block; margin: 0 auto; }
+        .buttons { display: flex; justify-content: center; gap: 15px; height: 50px; position: relative; align-items: center; margin-top: 20px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 50px; border: none; font-weight: bold; transition: 0.3s; }
         #yesBtn { background-color: #ff4d4d; color: white; z-index: 100; }
         #noBtn { background-color: #808080; color: white; position: relative; }
     </style>
@@ -19,12 +19,12 @@
 <body>
 
     <audio id="bgMusic" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
     </audio>
 
     <div class="container">
         <div class="img-container">
-            <img id="mainImg" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif" alt="Cute Panda">
+            <img id="mainImg" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif" alt="Cute Cat">
         </div>
         <h1 id="text">Sally, will you be my Valentine? ❤️</h1>
         <div class="buttons">
@@ -38,7 +38,7 @@
         const music = document.getElementById('bgMusic');
 
         document.body.addEventListener('click', () => { 
-            music.play().catch(e => console.log("Music play after interaction")); 
+            music.play().catch(e => {}); 
         }, { once: true });
 
         function moveButton() {
@@ -49,16 +49,15 @@
             noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
-            yesScale += 0.2;
+            yesScale += 0.25;
             yesBtn.style.transform = `scale(${yesScale})`;
         }
 
         function accepted() {
-            // احتفالية الـ Confetti
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-
-            // صورة الباندا وهي تحتفل بقلوب (رابط جديد)
-            document.getElementById('mainImg').src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif";
+            confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 } });
+            
+            // تغيير الصورة لقطة تانية بتحتفل
+            document.getElementById('mainImg').src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3B3ZnR5Z3pueGZ3eXpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiCiZL/giphy.gif";
             
             document.getElementById('text').innerHTML = "I knew it! Happy Valentine, Sally! 🥰❤️";
             document.querySelector('.buttons').style.display = 'none';
