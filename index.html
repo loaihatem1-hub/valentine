@@ -7,10 +7,10 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         body { background-color: #ffe6e6; text-align: center; font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0; overflow: hidden; }
-        .container { background: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 350px; position: relative; z-index: 10; }
+        .container { background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 350px; position: relative; z-index: 10; }
         h1 { color: #d63384; font-size: 24px; margin-bottom: 20px; }
-        .img-container img { width: 200px; height: 200px; border-radius: 20px; margin-bottom: 15px; object-fit: cover; }
-        .buttons { display: flex; justify-content: center; gap: 15px; height: 60px; position: relative; align-items: center; }
+        .img-container img { width: 100%; max-width: 250px; border-radius: 20px; margin-bottom: 15px; }
+        .buttons { display: flex; justify-content: center; gap: 15px; height: 60px; position: relative; align-items: center; margin-top: 20px; }
         button { padding: 12px 25px; font-size: 18px; cursor: pointer; border-radius: 50px; border: none; font-weight: bold; transition: 0.3s; }
         #yesBtn { background-color: #ff4d4d; color: white; z-index: 100; }
         #noBtn { background-color: #808080; color: white; position: relative; }
@@ -24,7 +24,7 @@
 
     <div class="container">
         <div class="img-container">
-            <img id="mainImg" src="https://i.pinimg.com/originals/f4/0b/40/f40b406981fcc232961d120a158b0932.gif" alt="Cute Panda">
+            <img id="mainImg" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif" alt="Cute Panda">
         </div>
         <h1 id="text">Sally, will you be my Valentine? ❤️</h1>
         <div class="buttons">
@@ -37,50 +37,30 @@
         let yesScale = 1;
         const music = document.getElementById('bgMusic');
 
-        // تشغيل الموسيقى مع أول لمسة للشاشة
         document.body.addEventListener('click', () => { 
-            music.play().catch(e => console.log("Music waiting for interaction")); 
+            music.play().catch(e => console.log("Music play after interaction")); 
         }, { once: true });
 
         function moveButton() {
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
-            
-            // تحريك زر No بعيداً في أماكن عشوائية
             const x = Math.random() * (window.innerWidth - 100);
             const y = Math.random() * (window.innerHeight - 50);
             noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
-
-            // تكبير زر Yes تدريجياً
             yesScale += 0.2;
             yesBtn.style.transform = `scale(${yesScale})`;
         }
 
         function accepted() {
-            // احتفالية ألوان (Confetti)
-            const duration = 5 * 1000;
-            const animationEnd = Date.now() + duration;
-            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+            // احتفالية الـ Confetti
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
 
-            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
-
-            const interval = setInterval(function() {
-                const timeLeft = animationEnd - Date.now();
-                if (timeLeft <= 0) return clearInterval(interval);
-                const particleCount = 50 * (timeLeft / duration);
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-            }, 250);
-
-            // تغيير الصورة لصورة احتفال (باندا بقلوب)
-            document.getElementById('mainImg').src = "https://i.pinimg.com/originals/f6/15/e9/f615e95593a388e404b3602f23f6631b.gif";
+            // صورة الباندا وهي تحتفل بقلوب (رابط جديد)
+            document.getElementById('mainImg').src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3eXpueGZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif";
             
-            // تغيير النص
             document.getElementById('text').innerHTML = "I knew it! Happy Valentine, Sally! 🥰❤️";
-            
-            // إخفاء الأزرار بعد الموافقة
             document.querySelector('.buttons').style.display = 'none';
         }
     </script>
